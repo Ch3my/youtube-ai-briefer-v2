@@ -22,23 +22,23 @@ async def get_transcript(data):
             await send_message(
                 {
                     "action": "message",
-                    "msgCode": "info",
-                    "msg": f"Transcript successfully retrieved.",
+                    "msgCode": "useWhisper",
+                    "msg":"La transcripcion esta desactivada para este video",
                 }
             )
-            return
+            return None
     except NoTranscriptFound as e:
         if data.get("whisperConfirmed") != True:
             await send_message(
                 {
                     "action": "message",
-                    "msgCode": "info",
-                    "msg": "No existe una transcripcion en los idiomas aceptados. ¿Quieres usar Whisper?",
+                    "msgCode": "useWhisper",
+                    "msg": "No existe una transcripcion en los idiomas aceptados",
                 }
             )
-            return
+            return None
 
-    if transcript == "" and data.get("whisperConfirmed") == True:
+    if transcript == None and data.get("whisperConfirmed") == True:
         transcript = whisper_transcript(data.get("url"))
 
     return transcript

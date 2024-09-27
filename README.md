@@ -24,7 +24,7 @@ const socket = new WebSocket(wsUrl);
 
 // Define the data to be sent
 const data = {
-    whisperConfirmed: true, // Change this to false if needed
+    whisperConfirmed: false, // Change this to false if needed
     url: 'https://www.youtube.com/watch?v=XOqGDLy1IGU',
     action: "build"
 };
@@ -54,3 +54,9 @@ socket.addEventListener('close', (event) => {
 socket.addEventListener('error', (event) => {
     console.error('WebSocket error:', event);
 });
+
+socket.send(JSON.stringify({
+    action: "query",
+    query: "de que trata el texto?"
+    
+}))

@@ -22,6 +22,8 @@ async def handle_connection(websocket, path):
 
             # Check action and perform corresponding operation
             if data.get("action") == "build":
+                # Esto nos ayuda a que no se bloquee el WS, ademas 
+                # las funciones adentro de aqui pueden usar await para enviar mensajes via WS
                 asyncio.create_task(handle_build(data))
             elif data.get("action") == "query":
                 await handle_query(data)

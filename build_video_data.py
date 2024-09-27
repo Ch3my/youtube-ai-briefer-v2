@@ -2,7 +2,6 @@ import threading
 from functions.build_rag import build_rag
 from functions.build_notas_detalladas import build_notas_detalladas
 from functions.get_transcript import get_transcript
-from functions.load_config import load_config
 from functions.send_message import send_message
 
 

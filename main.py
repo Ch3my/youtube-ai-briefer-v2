@@ -17,12 +17,8 @@ async def handle_connection(websocket):
         while True:
             # Receive message from client
             message = await websocket.recv()
-            # print(f"Received: {message}")
-            # Parse JSON message
             data = json.loads(message)
-            # print(f"Parsed JSON: {data}")
 
-            # Check action and perform corresponding operation
             if data.get("action") == "build":
                 # Esto nos ayuda a que no se bloquee el WS, ademas
                 # las funciones adentro de aqui pueden usar await para enviar mensajes via WS
@@ -30,13 +26,13 @@ async def handle_connection(websocket):
             elif data.get("action") == "query":
                 asyncio.create_task(handle_query(data))
 
-            # Send response back to client
-            response_data = {
-                "status": "ok",
-                "message": "Action processed",
-                "received_data": data,
-            }
-            await websocket.send(json.dumps(response_data))
+            # # Send response back to client
+            # response_data = {
+            #     "status": "ok",
+            #     "message": "Action processed",
+            #     "received_data": data,
+            # }
+            # await websocket.send(json.dumps(response_data))
 
     except websockets.ConnectionClosed as e:
         print(f"Connection closed: {e}")

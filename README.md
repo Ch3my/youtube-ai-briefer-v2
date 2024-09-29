@@ -12,9 +12,11 @@ pip install ...
 
 Quiza puedo quitar langchain chorma
 
-`pip install websockets pyinstaller youtube_transcript_api yt-dlp openai langchain-openai langchain langchain-core langchain-anthropic langchain_chroma langchain-huggingface rank_bm25 faiss-cpu flashrank langchain-community` 
+```
+pip install websockets pyinstaller youtube_transcript_api yt-dlp openai langchain-openai langchain langchain-core langchain-anthropic  langchain-huggingface rank_bm25 faiss-cpu flashrank langchain-community pydantic
+``` 
 
-
+pyinstaller --collect-all langchain --collect-all langchain-community --collect-all scipy --collect-all sentence_transformers --collect-all transformers --collect-all posthog --collect-all pydantic --noconfirm main.py
 
 // Define the WebSocket URL
 const wsUrl = 'ws://localhost:12345';

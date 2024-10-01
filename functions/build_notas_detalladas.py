@@ -5,6 +5,8 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
+from functions.send_message import send_message
+
 
 async def build_notas_detalladas(transcript):
     config = load_config()
@@ -76,6 +78,14 @@ async def build_notas_detalladas(transcript):
         ]
     )
 
+    # Build Resumen
+    await send_message(
+        {
+            "action": "message",
+            "msgCode": "info",
+            "msg": f"Construyendo Notas ({len(chunks)} secciones)",
+        }
+    )
     # Crea una chain, esta la ejecutamos en un loop y no en un chain automatico
     note_chain = prompt_template | resume_model | StrOutputParser()
     try:
@@ -126,6 +136,14 @@ async def build_notas_detalladas(transcript):
         ]
     )
 
+    # Build Resumen
+    await send_message(
+        {
+            "action": "message",
+            "msgCode": "info",
+            "msg": "Generando documento final",
+        }
+    )
     condensa_chain = condensa_template | condensa_model | StrOutputParser()
     final_document = condensa_chain.invoke({"notes": notes_join})
 

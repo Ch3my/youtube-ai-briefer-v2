@@ -45,14 +45,6 @@ async def build_video_data(data):
     rag_thread.setDaemon(True)
     rag_thread.start()
 
-    # Build Resumen
-    await send_message(
-        {
-            "action": "message",
-            "msgCode": "info",
-            "msg": "Construyendo Notas",
-        }
-    )
     notas_detalladas = await build_notas_detalladas(transcript)
 
     await send_message(

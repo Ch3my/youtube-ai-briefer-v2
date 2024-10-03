@@ -92,7 +92,7 @@ async def build_notas_detalladas(transcript):
     try:
         # notes = [note_chain.invoke({"chunk": chunk}) for chunk in chunks]
         for chunk in chunks:
-            note_result = await note_chain.invoke({"chunk": chunk})
+            note_result = note_chain.invoke({"chunk": chunk})
             notes.append(note_result)
             await send_message(
                 {

@@ -25,14 +25,8 @@ async def handle_connection(websocket):
                 asyncio.create_task(handle_build(data))
             elif data.get("action") == "query":
                 asyncio.create_task(handle_query(data))
-
-            # # Send response back to client
-            # response_data = {
-            #     "status": "ok",
-            #     "message": "Action processed",
-            #     "received_data": data,
-            # }
-            # await websocket.send(json.dumps(response_data))
+            elif data.get("action") == "ping":
+                await websocket.send(json.dumps({"action": "pong"}))
 
     except websockets.ConnectionClosed as e:
         print(f"Connection closed: {e}")

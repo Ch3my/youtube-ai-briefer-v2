@@ -88,8 +88,18 @@ async def build_notas_detalladas(transcript):
     )
     # Crea una chain, esta la ejecutamos en un loop y no en un chain automatico
     note_chain = prompt_template | resume_model | StrOutputParser()
+    notes = []
     try:
-        notes = [note_chain.invoke({"chunk": chunk}) for chunk in chunks]
+        # notes = [note_chain.invoke({"chunk": chunk}) for chunk in chunks]
+        for chunk in chunks:
+            note_result = await note_chain.invoke({"chunk": chunk})
+            notes.append(note_result)
+            await send_message(
+                {
+                    "action": "noteSection",
+                    "note": note_result,
+                }
+            )
     except Exception as e:
         print(e)
         return

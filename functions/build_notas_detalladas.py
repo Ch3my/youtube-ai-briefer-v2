@@ -154,7 +154,15 @@ async def build_notas_detalladas(transcript):
             "msg": "Generando documento final",
         }
     )
-    condensa_chain = condensa_template | condensa_model | StrOutputParser()
-    final_document = condensa_chain.invoke({"notes": notes_join})
-
+    try:
+        condensa_chain = condensa_template | condensa_model | StrOutputParser()
+        final_document = condensa_chain.invoke({"notes": notes_join})
+    except Exception as e:
+        print(e)
+        return
+    
+    if not final_document:
+        print(final_document)
+        return f"Error al procesar final_document, valor es null, None, falso o vacio. El largo de las notas enviadas fue {len(transcript):,}"
+    
     return final_document

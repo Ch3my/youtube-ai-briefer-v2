@@ -44,9 +44,11 @@ async def handle_query(data):
     await query_rag(data.get("query"))
 
 
-# Start WebSocket server
-start_server = websockets.serve(handle_connection, "localhost", 12345)
+try:
+    start_server = websockets.serve(handle_connection, "localhost", 12345)
 
-asyncio.get_event_loop().run_until_complete(start_server)
-print("WebSocket server started on ws://localhost:12345")
-asyncio.get_event_loop().run_forever()
+    asyncio.get_event_loop().run_until_complete(start_server)
+    print("WebSocket server started on ws://localhost:12345")
+    asyncio.get_event_loop().run_forever()
+except Exception as e:
+    print(f"Error starting server: {e}")

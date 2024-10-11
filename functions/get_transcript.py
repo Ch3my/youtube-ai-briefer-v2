@@ -11,7 +11,7 @@ from youtube_transcript_api import (
 
 async def get_transcript(data):
     yt_vide_id = get_video_id(data.get("url"))
-    transcript = ""
+    transcript = None
     try:
         chunks = YouTubeTranscriptApi.get_transcript(
             yt_vide_id, languages=["es", "en", "en-GB"]
@@ -38,7 +38,7 @@ async def get_transcript(data):
             )
             return None
 
-    if transcript == None and data.get("whisperConfirmed") == True:
-        transcript = whisper_transcript(data.get("url"))
+    if transcript is None and data.get("whisperConfirmed") == True:
+        transcript = await whisper_transcript(data.get("url"))
 
     return transcript

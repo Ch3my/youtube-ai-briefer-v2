@@ -1,3 +1,4 @@
+import asyncio
 import threading
 from functions.build_rag import build_rag
 from functions.build_notas_detalladas import build_notas_detalladas
@@ -41,9 +42,12 @@ async def build_video_data(data):
     # antes de que termine el procesamiento. La coma es necesaria, sino piensa que cada caracter es un argumento
     # A daemon thread is a thread that doesn’t prevent the program from exiting.
     # If the program ends or all non-daemon threads finish execution, any remaining daemon threads are stopped.
-    rag_thread = threading.Thread(target=build_rag, args=(transcript,))
-    rag_thread.setDaemon(True)
-    rag_thread.start()
+    # rag_thread = threading.Thread(target=build_rag, args=(transcript,))
+    # rag_thread.setDaemon(True)
+    # rag_thread.start()
+
+    # Sera mejor usar asyncio? en teoria no hay diferencia en este use case 
+    await asyncio.to_thread(build_rag, transcript)
 
     notas_detalladas = await build_notas_detalladas(transcript)
 

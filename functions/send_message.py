@@ -1,7 +1,7 @@
 import asyncio
 import json
 from globals import Globals
-
+from datetime import datetime
 
 async def send_message(message):
     """
@@ -13,6 +13,10 @@ async def send_message(message):
     globals_instance = Globals()  # Get the singleton instance
     if globals_instance.connected_clients:  # Check if there are any connected clients
         message_data = json.dumps(message)
+        
+        # Print statement to show the date, time, message info, and its length
+        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        print(f"{current_time} - sending message - length: {len(message_data)}")
 
         # Create a list of tasks for sending messages to all clients.
         # This is necessary to ensure non-blocking execution, allowing

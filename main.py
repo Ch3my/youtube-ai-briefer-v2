@@ -30,6 +30,8 @@ async def handle_connection(websocket):
 
     except websockets.ConnectionClosed as e:
         print(f"Connection closed: {e}")
+    except Exception as e:
+        print(f"Error: {e}")
     finally:
         # Unregister the client on disconnect
         globals.connected_clients.remove(websocket)

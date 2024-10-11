@@ -19,5 +19,5 @@ pip install websockets pyinstaller youtube_transcript_api yt-dlp openai langchai
 El exe y su carpeta internal deben copiarse a src-tauri. Recuerda ajustar el nombre del exe segun la plataforma
 
 ```
-pyinstaller --collect-all langchain --collect-all langchain-community --collect-all scipy --collect-all sentence_transformers --collect-all transformers --collect-all posthog --collect-all pydantic --noconfirm main.py
+pyinstaller --collect-all langchain  --collect-all scipy --collect-all sentence_transformers --collect-all transformers --collect-all posthog --collect-all pydantic --noconfirm main.py
 ```

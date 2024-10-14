@@ -90,8 +90,9 @@ async def build_notas_detalladas(transcript):
     note_chain = prompt_template | resume_model | StrOutputParser()
     notes = []
     try:
-        # notes = [note_chain.invoke({"chunk": chunk}) for chunk in chunks]
         for chunk in chunks:
+            # NOTA. puede que invoke sea blocking y cause timeout del socket con la config por defecto 
+            # quiza se puede usar ainvoke?
             note_result = note_chain.invoke({"chunk": chunk})
             notes.append(note_result)
             await send_message(

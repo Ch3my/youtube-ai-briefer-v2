@@ -47,7 +47,12 @@ async def handle_query(data):
 
 
 try:
-    start_server = websockets.serve(handle_connection, "localhost", 12345)
+    # Fue necesario poner ping_timeout alto, por defecto 20 segundos. A veces se cerraba la conexion
+    # si se tardaba mucho algun paso "a veces" y no logramos verificar como implementar
+    # ping en el cliente y si es que fuera necesario, dicen que deberia ser automatico
+    # Aca esta todo corriendo con asyncio asi que no deberia ser blocking nada
+    # pero quizas es diferente enviar y recibir paquetes
+    start_server = websockets.serve(handle_connection, "localhost", 12345, ping_timeout=600)
 
     asyncio.get_event_loop().run_until_complete(start_server)
     print("WebSocket server started on ws://localhost:12345")

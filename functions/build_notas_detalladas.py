@@ -91,7 +91,7 @@ async def build_notas_detalladas(transcript):
     notes = []
     try:
         for chunk in chunks:
-            # NOTA. puede que invoke sea blocking y cause timeout del socket con la config por defecto 
+            # NOTA. puede que invoke sea blocking y cause timeout del socket con la config por defecto
             # quiza se puede usar ainvoke?
             note_result = note_chain.invoke({"chunk": chunk})
             notes.append(note_result)
@@ -107,13 +107,13 @@ async def build_notas_detalladas(transcript):
 
     notes_join = "\n\n".join(notes)
 
+    # - Un abstracto que presente el tema general y los puntos principales que se cubrirán.
     condensa_prompt = """
         1. Escribe como Nia, eres mi asistente, escribe como si me estuvieras entregando el informe en persona, no es necesario que te presentes ya nos conocemos. Tu trato debe ser cercano pero respetuoso.
         2. Redacta un documento coherente y exhaustivo en español, utilizando formato Markdown, que incorpore toda la información de las notas. El documento debe incluir:
 
         ## Al escribir utiliza esta estructura, si el texto no incluye informacion sobre alguna seccion simplemente no la escribas 
             - Un breve título principal que refleje el tema general.
-            - Un abstracto que presente el tema general y los puntos principales que se cubrirán.
             - Subtítulos para cada sección principal, utilizando los niveles de encabezado apropiados (##, ###, ####, etc.).
             - Secciones de contenido principal que desarrollen cada tema en detalle.
 
@@ -161,9 +161,9 @@ async def build_notas_detalladas(transcript):
     except Exception as e:
         print(e)
         return
-    
+
     if not final_document:
         print(final_document)
         return f"Error al procesar final_document, valor es null, None, falso o vacio. El largo de las notas enviadas fue {len(transcript):,}"
-    
+
     return final_document

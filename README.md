@@ -9,8 +9,6 @@ python -m venv .venv
 pip install ...
 ```
 ## Dependencias
-Quiza puedo quitar langchain chorma
-
 ```
 pip install websockets pyinstaller youtube_transcript_api yt-dlp openai langchain-openai langchain langchain-core langchain-anthropic  langchain-huggingface rank_bm25 faiss-cpu flashrank langchain-community pydantic
 ``` 
